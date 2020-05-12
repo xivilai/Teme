@@ -1,0 +1,63 @@
+[x] Decide on the UI
+[x] Remove topbar menu
+[x] Remove/cleanup all other stuff
+    [x] cleanup markup
+    [x] cleanup unused scripts
+[x] Change layout
+    [x] Buttons under time input
+[x] Make window start with a specific width 320 x 70 approx
+[x] Make time input take full screen
+[x] Make start/stop buttons appear on hover
+[x] TODO: Merge Count up timer with countdown timer
+    [x] Change "Start button" text when the timer is running to "Pause"
+    [x] Make start button pause the timer if it's running
+    [x] Make stop button reset the time, change start button text
+        accordingly
+[x] App icon
+    [x] Make icon round  
+[x] Change window title
+[x] Remove minimize and maximize buttons from the window
+[x] Make window draggable
+
+
+[x] Make Pause button text change to "Start" when the time is up
+[x] Make the time go back to previously set value when the time is up
+[] Make close application button
+[] Countup mode
+[] Make options Window appear on right click
+
+Options:
+    [] Transparent background (checked by default)
+    [] Hide in taskbar
+    [] always on top
+    [] "time is up" sound notification
+        [] Ability to select notification sound
+            [] off option
+        [] notification volume adjust
+
+Hotkeys
+[] Pause on spacebar key
+[] Arrow Up - increase time by 5m
+[] Arrow Down - decrease time by 5m
+[] Start time on enter
+[] Stop time on escape
+
+
+Possible features:
+[] Ability to input task name
+[] Ability to record the task name and time spent on it
+[] alloow to see the activty report
+    (weekdays with tasks and time spend on each task)
+[] When transparent show border on hover
+[] Taskbar icon show session progress (filling from bottom to up)
+[] custom colors for time and background
+[] Tray icon
+[] Session-break-session flow
+    [] Ability to set break time
+    [] Ability to autostart break
+[] Command line arguments
+		• /start
+		• /stop
+		• /pause
+		• /reset
+		• /set 15m30s

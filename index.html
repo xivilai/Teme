@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+
+    <title>Teme</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            -webkit-app-region: drag;
+            transition: 0.5s all;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        #time-input {
+            width: 100%;
+            height: 100%;
+            font-size: 20vw;
+            display: block;
+            text-align: center;
+            border: none;
+            color: rgb(236, 236, 236);
+            outline: 0;
+            transition: all 0.5s;
+            background-color: transparent;
+            -webkit-app-region: no-drag;
+        }
+
+        .btn-controls {
+            padding: 0 12vw;
+        }
+
+        .btn-controls .btn {
+            -webkit-app-region: no-drag;
+            font-size: 8vw;
+            padding: 0;
+            text-transform: uppercase;
+            color: rgb(236, 236, 236);
+            background-color: transparent;
+            border: 1px solid rgba(15, 15, 15, 0.2);
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <input class="input" type="text" id="time-input" value="00:05:00">
+        <div class="btn-controls row justify-between">
+            <button class="btn" id="start-timer">Start</button>
+            <button class="btn" id="stop-timer">Stop</button>
+        </div>
+    </div>
+
+    <script src="teme.js"></script>
+    <script>
+        var timeInput = document.getElementById('time-input');
+        var startTimerBtn = document.getElementById('start-timer');
+        var stopTimerBtn = document.getElementById('stop-timer');
+        var countdownLapButton = document.getElementById('lapCountdown');
+        var countdownClearButton = document.getElementById('clearCountdown');
+        var timeSetting = timeInput.value;
+        var temeTimerEl = document.getElementById('app');
+
+        var timer1 = new Teme({
+            countdown: true,
+            interval: 1000,
+            callback: function () {
+                var current_time_ms = timer1.lap();
+                var current_timecode = timer1.msToTimecode(current_time_ms, false)
+                timeInput.value = current_timecode;
+                if (current_time_ms === 0) { // Time is up
+                    timeInput.value = timer1.msToTimecode(timer1.duration_ms, false);
+                    startTimerBtn.innerHTML = 'start';
+                }
+            }
+        });
+
+        // Starts the timer
+        startTimerBtn.addEventListener('click', function (e) {
+            var val = timeInput.value;
+
+            if (timer1.go) {
+                timer1.stop();
+                e.target.innerHTML = 'start';
+            }
+            else {
+                timer1.start(val);
+                e.target.innerHTML = 'pause';
+            }
+            countdown_start_time = Date.now();
+        });
+
+        // Stops the timer
+        stopTimerBtn.addEventListener('click', function (e) {
+            timer1.reset();
+            // need setTime function
+            timer1.start(timeSetting);
+            timeInput.value = timeSetting;
+            timer1.stop();
+            startTimerBtn.innerHTML = 'start';
+        });
+
+        timeInput.addEventListener('change', () => {
+            timeSetting = timeInput.value;
+        });
+
+        // In renderer process (web page).
+        // let { remote } = require('electron');
+        // let win = remote.getCurrentWindow();
+        // const newHeight = win.getBounds().height + 300;
+        // win.setSize(win.getBounds().width, [newHeight, false]);
+        // console.log('new height is ' + win.getBounds().height);
+        // win.transparent = false;
+
+        let mouseInside = false;
+
+        document.body.addEventListener('mouseenter', () => {
+            startTimerBtn.style.visibility = 'visible';
+            stopTimerBtn.style.visibility = 'visible';
+            document.body.style.backgroundColor = 'black';
+            mouseInside = true;
+        });
+
+        document.body.addEventListener('mouseleave', (event) => {
+            mouseInside = false;
+            setTimeout(() => {
+                if (!mouseInside) {
+                    startTimerBtn.style.visibility = 'collapsed';
+                    stopTimerBtn.style.visibility = 'collapsed';
+                    document.body.style.backgroundColor = 'transparent';
+                }
+            }, 5000);
+        })
+    </script>
+</body>

@@ -1,0 +1,23 @@
+{
+  "name": "teme",
+  "version": "1.0.0",
+  "description": "Timer application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "",
+  "keywords": [
+    "timer",
+    "stopwatch",
+    "clock"
+  ],
+  "author": {
+    "name": "Slava Logos",
+    "email": "logos.slava@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^8.2.5"
+  }
+}
