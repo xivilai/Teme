@@ -18,10 +18,10 @@
 [x] Change window title
 [x] Remove minimize and maximize buttons from the window
 [x] Make window draggable
-
-
 [x] Make Pause button text change to "Start" when the time is up
 [x] Make the time go back to previously set value when the time is up
+Window:
+    [x] Make window always stay on top of other windows by default
 [] Make close application button
 [] Countup mode
 [] Make options Window appear on right click

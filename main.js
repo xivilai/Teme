@@ -3,26 +3,21 @@ const {app, BrowserWindow} = require('electron')
 const path = require('path')
 
 function createWindow() {
-  const window = new electron.BrowserWindow({
+  const window = new BrowserWindow({
     width: 135,
     height: 50,
-    alwaysOnTop: true,
     skipTaskbar: true,
     transparent: true,
     frame: false,
-    icon: path.join(__dirname, '../', '/resources/win32/app-icon.png'),
+    icon: path.join(__dirname, '/resources/win32/app-icon.png'),
     webPreferences: {
       nodeIntegration: true
     }
   });
-  window.loadFile('src/index.html');
-  setInterval(() => {
-    window.setAlwaysOnTop(true);
-    if (window.isMinimized()) {
-      console.log('window is minimized, restoring');
-      window.restore();
-    }
-  }, 300);
+
+  window.loadFile('index.html');
+
+  window.setAlwaysOnTop(true, 'normal');
 }
 
 // This method will be called when Electron has finished
