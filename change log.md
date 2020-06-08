@@ -1,0 +1,1 @@
+- [x] Make window always stay on top of other windows by default

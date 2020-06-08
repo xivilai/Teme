@@ -1,36 +1,21 @@
-[x] Decide on the UI
-[x] Remove topbar menu
-[x] Remove/cleanup all other stuff
-    [x] cleanup markup
-    [x] cleanup unused scripts
-[x] Change layout
-    [x] Buttons under time input
-[x] Make window start with a specific width 320 x 70 approx
-[x] Make time input take full screen
-[x] Make start/stop buttons appear on hover
-[x] TODO: Merge Count up timer with countdown timer
-    [x] Change "Start button" text when the timer is running to "Pause"
-    [x] Make start button pause the timer if it's running
-    [x] Make stop button reset the time, change start button text
-        accordingly
-[x] App icon
-    [x] Make icon round  
-[x] Change window title
-[x] Remove minimize and maximize buttons from the window
-[x] Make window draggable
-[x] Make Pause button text change to "Start" when the time is up
-[x] Make the time go back to previously set value when the time is up
-Window:
-    [x] Make window always stay on top of other windows by default
+Bugs:
+- [ ] After resizing the risize cursor doesn't appear on window border
+- [ ] "Start/Stop" Buttons shoudn't have outline when selected
+- [ ] Time input area is bigger than the text, cursor should not change below time text.
+
+
+Features:
+- [ ] Close button
+
 [] Make close application button
 [] Countup mode
-[] Make options Window appear on right click
 
-Options:
-    [] Transparent background (checked by default)
-    [] Hide in taskbar
-    [] always on top
-    [] "time is up" sound notification
+- [ ] Make options Window appear on right click
+    Options:
+    - [] Transparent background (checked by default)
+    - [] Hide in taskbar (checked by default)
+    - [] always on top (checked by default)
+    - [] "time is up" sound notification
         [] Ability to select notification sound
             [] off option
         [] notification volume adjust
