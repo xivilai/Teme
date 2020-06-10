@@ -1,14 +1,11 @@
 Bugs:
 - [ ] After resizing the risize cursor doesn't appear on window border
 - [ ] "Start/Stop" Buttons shoudn't have outline when selected
-- [ ] Time input area is bigger than the text, cursor should not change below time text.
 
 
 Features:
-- [ ] Close button
-
-[] Make close application button
-[] Countup mode
+- [ ] Tray option: "Close application" button
+- [ ] Countup mode
 
 - [ ] Make options Window appear on right click
     Options:

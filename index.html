@@ -5,41 +5,36 @@
     <meta charset="UTF-8">
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-
     <title>Teme</title>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.min.css"> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
+        /* General */
         * {
             box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            overflow: hidden;
+            background-color: black;
             -webkit-app-region: drag;
             transition: 0.5s all;
         }
 
-        .row {
-            display: flex;
+        .container {
+            width: 90%;
+            margin: 0 auto;
         }
 
-        .justify-center {
-            justify-content: center;
-        }
 
-        .justify-between {
-            justify-content: space-between;
+
+        #app {
+            padding-top: 10%;
         }
 
         #time-input {
+            height: 20vw;
+            font-size: 23vw;
             width: 100%;
-            height: 100%;
-            font-size: 20vw;
-            display: block;
-            text-align: center;
             border: none;
             color: rgb(236, 236, 236);
             outline: 0;
@@ -48,11 +43,12 @@
             -webkit-app-region: no-drag;
         }
 
-        .btn-controls {
-            padding: 0 12vw;
+        .controls {
+            display: flex;
+            justify-content: space-between;
         }
 
-        .btn-controls .btn {
+        .controls button {
             -webkit-app-region: no-drag;
             font-size: 8vw;
             padding: 0;
@@ -68,10 +64,12 @@
 <body>
 
     <div id="app">
-        <input class="input" type="text" id="time-input" value="00:05:00">
-        <div class="btn-controls row justify-between">
-            <button class="btn" id="start-timer">Start</button>
-            <button class="btn" id="stop-timer">Stop</button>
+        <div class="container">
+            <input class="input" type="text" id="time-input" value="00:05:00">
+            <div class="controls">
+                <button id="start-timer">Start</button>
+                <button id="stop-timer">Stop</button>
+            </div>
         </div>
     </div>
 
@@ -136,24 +134,24 @@
         // console.log('new height is ' + win.getBounds().height);
         // win.transparent = false;
 
-        let mouseInside = false;
+        // let mouseInside = false;
 
-        document.body.addEventListener('mouseenter', () => {
-            startTimerBtn.style.visibility = 'visible';
-            stopTimerBtn.style.visibility = 'visible';
-            document.body.style.backgroundColor = 'black';
-            mouseInside = true;
-        });
+        // document.body.addEventListener('mouseenter', () => {
+        //     startTimerBtn.style.visibility = 'visible';
+        //     stopTimerBtn.style.visibility = 'visible';
+        //     document.body.style.backgroundColor = 'black';
+        //     mouseInside = true;
+        // });
 
-        document.body.addEventListener('mouseleave', (event) => {
-            mouseInside = false;
-            setTimeout(() => {
-                if (!mouseInside) {
-                    startTimerBtn.style.visibility = 'collapsed';
-                    stopTimerBtn.style.visibility = 'collapsed';
-                    document.body.style.backgroundColor = 'transparent';
-                }
-            }, 5000);
-        })
+        // document.body.addEventListener('mouseleave', (event) => {
+        //     mouseInside = false;
+        //     setTimeout(() => {
+        //         if (!mouseInside) {
+        //             startTimerBtn.style.visibility = 'collapsed';
+        //             stopTimerBtn.style.visibility = 'collapsed';
+        //             document.body.style.backgroundColor = 'transparent';
+        //         }
+        //     }, 5000);
+        // })
     </script>
 </body>

@@ -2,10 +2,13 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 
+app.commandLine.appendSwitch('remote-debugging-port', '8315');
+app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
+
 function createWindow() {
   const window = new BrowserWindow({
-    width: 135,
-    height: 50,
+    width: 175,
+    height: 80,
     skipTaskbar: true,
     transparent: true,
     frame: false,
