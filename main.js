@@ -1,9 +1,21 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu, Tray} = require('electron')
 const path = require('path')
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315');
 app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
+
+function main() {
+  createWindow();
+  let tray = null
+  tray = new Tray(path.join(__dirname, '/resources/win32/app-icon.png'));
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Options', type: 'normal', click: ()=> {  } },
+    { label: 'Close', type: 'normal', click: ()=> { app.quit(); } },
+  ])
+  tray.setToolTip('Teme');
+  tray.setContextMenu(contextMenu);
+}
 
 function createWindow() {
   const window = new BrowserWindow({
@@ -23,10 +35,24 @@ function createWindow() {
   window.setAlwaysOnTop(true, 'normal');
 }
 
+function createOptionsWindow() {
+  const optionsWindow = new BrowserWindow({
+    width: 175,
+    height: 80,
+    skipTaskbar: true,
+    transparent: true,
+    frame: false,
+    icon: path.join(__dirname, '/resources/win32/app-icon.png'),
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(createWindow)
+app.whenReady().then(main);
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
