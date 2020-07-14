@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <title>Options</title>
+
+    <style>
+        body {
+            background-color: rgb(66, 64, 64);
+            color: rgb(238, 230, 230);
+            padding: 1em;
+        }
+
+        .option-group {
+            margin-bottom: 0.5em;
+        }
+
+        input[type="checkbox"] {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="option-group">
+            <label for="transparent">Transparent</label>
+            <input type="checkbox" name="transparent" id="transparent">
+        </div>
+
+        <div class="option-group">
+            <label for="skipTaskbar">Hide in taskbar</label>
+            <input type="checkbox" name="skipTaskbar" id="skipTaskbar">
+        </div>
+
+        <div class="option-group">
+            <label for="alwaysOnTop">Always on top</label>
+            <input type="checkbox" name="alwaysOnTop" id="alwaysOnTop">
+        </div>
+    </div>
+
+    <script>
+        let config = require('./config');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const transparent = document.getElementById('transparent');
+            const skipTaskbar = document.getElementById('skipTaskbar');
+            const alwaysOnTop = document.getElementById('alwaysOnTop');
+
+            transparent.checked = config.transparent;
+            skipTaskbar.checked = config.skipTaskbar;
+            alwaysOnTop.checked = config.alwaysOnTop;
+        });
+
+        transparent.addEventListener('click', () => {
+            
+        });
+
+        skipTaskbar.addEventListener('click', () => {
+
+        });
+
+        alwaysOnTop.addEventListener('click', () => {
+
+        });
+
+        function setCheckboxesChecked() {
+            const checkBoxes = document.querySelectorAll('input[type="checkbox"]');
+            checkBoxes.forEach((checkBox, _) => {
+                const storageKey = checkBox.getAttribute('id') + '-checked';
+                checkBox.setAttribute('checked', localStorage.getItem(storageKey));
+            });
+        }
+    </script>
+</body>
+
+</html>

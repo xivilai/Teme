@@ -15,7 +15,6 @@
 
         body {
             margin: 0;
-            background-color: black;
             -webkit-app-region: drag;
             transition: 0.5s all;
         }
@@ -23,6 +22,10 @@
         .container {
             width: 90%;
             margin: 0 auto;
+        }
+
+        .bg-visible {
+            background-color: black;
         }
 
 
@@ -126,32 +129,14 @@
             timeSetting = timeInput.value;
         });
 
-        // In renderer process (web page).
-        // let { remote } = require('electron');
-        // let win = remote.getCurrentWindow();
-        // const newHeight = win.getBounds().height + 300;
-        // win.setSize(win.getBounds().width, [newHeight, false]);
-        // console.log('new height is ' + win.getBounds().height);
-        // win.transparent = false;
+        document.body.addEventListener('mouseenter', () => {
+            document.body.classList.toggle('bg-visible');
+        });
 
-        // let mouseInside = false;
-
-        // document.body.addEventListener('mouseenter', () => {
-        //     startTimerBtn.style.visibility = 'visible';
-        //     stopTimerBtn.style.visibility = 'visible';
-        //     document.body.style.backgroundColor = 'black';
-        //     mouseInside = true;
-        // });
-
-        // document.body.addEventListener('mouseleave', (event) => {
-        //     mouseInside = false;
-        //     setTimeout(() => {
-        //         if (!mouseInside) {
-        //             startTimerBtn.style.visibility = 'collapsed';
-        //             stopTimerBtn.style.visibility = 'collapsed';
-        //             document.body.style.backgroundColor = 'transparent';
-        //         }
-        //     }, 5000);
-        // })
+        document.body.addEventListener('mouseleave', () => {
+            document.body.classList.toggle('bg-visible');
+        });
     </script>
 </body>
+
+</html>
