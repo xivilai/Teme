@@ -21,6 +21,19 @@
         input[type="checkbox"] {
             vertical-align: middle;
         }
+
+        .confirm-btns {
+            position: fixed;
+            bottom: 1em;
+            right: 1em;
+        }
+
+        .confirm-btns button {
+            background-color: transparent;
+            color: snow;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            padding: 0.5em 1em;
+        }
     </style>
 </head>
 
@@ -40,40 +53,61 @@
             <label for="alwaysOnTop">Always on top</label>
             <input type="checkbox" name="alwaysOnTop" id="alwaysOnTop">
         </div>
+        <div class="confirm-btns">
+            <button id="cancel">cancel</button>
+            <button id="ok">Ok</button>
+        </div>
     </div>
 
     <script>
         let config = require('./config');
+        const fs = require('fs');
+        const remote = require('electron').remote;
+        const app = remote.app;
 
+        // settings elements
+        const transparent = document.getElementById('transparent');
+        const skipTaskbar = document.getElementById('skipTaskbar');
+        const alwaysOnTop = document.getElementById('alwaysOnTop');
+        
         document.addEventListener('DOMContentLoaded', () => {
-            const transparent = document.getElementById('transparent');
-            const skipTaskbar = document.getElementById('skipTaskbar');
-            const alwaysOnTop = document.getElementById('alwaysOnTop');
+            initSettings();
+        });
 
+        function initSettings() {
             transparent.checked = config.transparent;
             skipTaskbar.checked = config.skipTaskbar;
             alwaysOnTop.checked = config.alwaysOnTop;
+        }
+
+        document.getElementById('ok').addEventListener('click', () => {
+            // save settings to file and restart
+            fs.writeFile('config.json', JSON.stringify(config), (err) => {
+                if (err) {
+                    throw err;
+                } else {
+                    app.relaunch();
+                    app.exit();
+                }
+            });
+        });
+
+        document.getElementById('cancel').addEventListener('click', () => {
+           let window = remote.getCurrentWindow();
+           window.close();
         });
 
         transparent.addEventListener('click', () => {
-            
+            config.transparent = Boolean(transparent.checked);
         });
-
+        
         skipTaskbar.addEventListener('click', () => {
-
+            config.skipTaskbar = Boolean(skipTaskbar.checked);
         });
 
         alwaysOnTop.addEventListener('click', () => {
-
+            config.alwaysOnTop = Boolean(alwaysOnTop.checked);
         });
-
-        function setCheckboxesChecked() {
-            const checkBoxes = document.querySelectorAll('input[type="checkbox"]');
-            checkBoxes.forEach((checkBox, _) => {
-                const storageKey = checkBox.getAttribute('id') + '-checked';
-                checkBox.setAttribute('checked', localStorage.getItem(storageKey));
-            });
-        }
     </script>
 </body>
 
