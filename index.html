@@ -13,11 +13,28 @@
             box-sizing: border-box;
         }
 
+        html,
+        body,
+        #app {
+            height: 100%;
+        }
+
         body {
             margin: 0;
-            -webkit-app-region: drag;
             transition: 0.5s all;
             background-color: transparent;
+        }
+
+        .drag-bar {
+            height: 20%;
+            margin-bottom: 2%;
+            max-height: 30px;
+            -webkit-app-region: drag;
+            transition: 0.5s background-color;
+        }
+
+        .drag-bar.visible {
+            background-color: #454545;
         }
 
         .container {
@@ -26,13 +43,13 @@
         }
 
         .bg-visible {
-            background-color: black;
+            /* background-color: #1d1d1d; */
+            background-color: white;
         }
 
-
-
-        #app {
-            padding-top: 10%;
+        .bg-visible #time-input,
+        .bg-visible .controls button {
+            color: #1d1d1d;
         }
 
         #time-input {
@@ -44,7 +61,6 @@
             outline: 0;
             transition: all 0.5s;
             background-color: transparent;
-            -webkit-app-region: no-drag;
         }
 
         .controls {
@@ -53,14 +69,15 @@
         }
 
         .controls button {
-            -webkit-app-region: no-drag;
             font-size: 8vw;
+            user-select: none;
             padding: 0;
             text-transform: uppercase;
             color: rgb(236, 236, 236);
             background-color: transparent;
             border: 1px solid rgba(15, 15, 15, 0.2);
             outline: none;
+            border: none;
         }
     </style>
 </head>
@@ -68,6 +85,7 @@
 <body>
 
     <div id="app">
+        <div class="drag-bar"></div>
         <div class="container">
             <input class="input" type="text" id="time-input" value="00:05:00">
             <div class="controls">
@@ -86,6 +104,8 @@
         var countdownClearButton = document.getElementById('clearCountdown');
         var timeSetting = timeInput.value;
         var temeTimerEl = document.getElementById('app');
+        var dragBar = document.querySelector('.drag-bar');
+        var mouseOut = true;
 
         var timer1 = new Teme({
             countdown: true,
@@ -131,11 +151,19 @@
         });
 
         document.body.addEventListener('mouseenter', () => {
-            document.body.classList.toggle('bg-visible');
+            mouseOut = false;
+            document.body.classList.add('bg-visible');
+            dragBar.classList.add('visible');
         });
 
         document.body.addEventListener('mouseleave', () => {
-            document.body.classList.toggle('bg-visible');
+            mouseOut = true;
+            setTimeout(() => {
+                if (mouseOut) {
+                    document.body.classList.remove('bg-visible');
+                    dragBar.classList.remove('visible');
+                }
+            }, 3000);
         });
     </script>
 </body>
