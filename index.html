@@ -165,6 +165,31 @@
                 }
             }, 3000);
         });
+
+
+        const Store = require('./src/store.js')
+        const store = new Store({
+            configName: 'user-preferences',
+            defaults: {
+                transparent: true,
+                skipTaskbar: true,
+                alwaysOnTop: true
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimerTextColor()
+        })
+
+        function setTimerTextColor() {
+            const isTransparentBg = store.get('transparent');
+            if (!isTransparentBg) {
+                timeInput.style.color = 'black';
+                startTimerBtn.style.color = 'black';
+                stopTimerBtn.style.color = 'black';
+                dragBar.style.backgroundColor = '#454545';
+            }
+        }
     </script>
 </body>
 

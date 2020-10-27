@@ -60,53 +60,70 @@
     </div>
 
     <script>
-        let config = require('./config');
+        const Store = require('./src/store.js');
+        const store = new Store({
+            configName: 'user-preferences',
+            defaults: {
+                transparent: true,
+                skipTaskbar: true,
+                alwaysOnTop: true
+            }
+        });
+
         const fs = require('fs');
         const remote = require('electron').remote;
         const app = remote.app;
+        // object to track chages
+        let changeConfig = {};
 
         // settings elements
         const transparent = document.getElementById('transparent');
         const skipTaskbar = document.getElementById('skipTaskbar');
         const alwaysOnTop = document.getElementById('alwaysOnTop');
-        
+
         document.addEventListener('DOMContentLoaded', () => {
             initSettings();
         });
 
         function initSettings() {
-            transparent.checked = config.transparent;
-            skipTaskbar.checked = config.skipTaskbar;
-            alwaysOnTop.checked = config.alwaysOnTop;
+            transparent.checked = store.get("transparent");
+            skipTaskbar.checked = store.get("skipTaskbar");
+            alwaysOnTop.checked = store.get("alwaysOnTop");
+
+            changeConfig.transparent = transparent.checked;
+            changeConfig.skipTaskbar = skipTaskbar.checked;
+            changeConfig.alwaysOnTop = alwaysOnTop.checked;
+
+            // set clock color on non-transparent background
         }
 
         document.getElementById('ok').addEventListener('click', () => {
-            // save settings to file and restart
-            fs.writeFile('config.json', JSON.stringify(config), (err) => {
-                if (err) {
-                    throw err;
-                } else {
-                    app.relaunch();
-                    app.exit();
-                }
-            });
+            // save updated preferences
+            const propNames = Object.keys(changeConfig);
+            store.set(propNames[0], changeConfig.transparent);
+            store.set(propNames[1], changeConfig.skipTaskbar);
+            store.set(propNames[2], changeConfig.alwaysOnTop);
+
+            // Restart to take effect immediately
+            app.relaunch();
+            app.exit();
         });
 
         document.getElementById('cancel').addEventListener('click', () => {
-           let window = remote.getCurrentWindow();
-           window.close();
+            let window = remote.getCurrentWindow();
+            window.close();
         });
 
         transparent.addEventListener('click', () => {
-            config.transparent = Boolean(transparent.checked);
+            changeConfig.transparent = Boolean(transparent.checked);
         });
-        
+
         skipTaskbar.addEventListener('click', () => {
-            config.skipTaskbar = Boolean(skipTaskbar.checked);
+            changeConfig.skipTaskbar = Boolean(skipTaskbar.checked);
         });
 
         alwaysOnTop.addEventListener('click', () => {
-            config.alwaysOnTop = Boolean(alwaysOnTop.checked);
+            changeConfig.alwaysOnTop = Boolean(alwaysOnTop.checked);
         });
     </script>
 </body>
