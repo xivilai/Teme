@@ -1,10 +1,49 @@
 {
   "name": "teme",
   "version": "1.0.0",
-  "description": "Timer application",
+  "license": "MIT",
+  "description": "Simple and responsive timer application",
+  "author": {
+    "name": "Slava Logos",
+    "email": "logos.slava@gmail.com"
+  },
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "postinstall": "install-app-deps",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.slogos.teme",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "build/icon.icns"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "portable",
+      "icon": "build/icon.ico"
+    }
   },
   "repository": "",
   "keywords": [
@@ -12,12 +51,9 @@
     "stopwatch",
     "clock"
   ],
-  "author": {
-    "name": "Slava Logos",
-    "email": "logos.slava@gmail.com"
-  },
-  "license": "MIT",
+  
   "devDependencies": {
-    "electron": "^8.2.5"
+    "electron": "^8.2.5",
+    "electron-builder": "^22.9.1"
   }
 }
