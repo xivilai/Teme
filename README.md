@@ -1,1 +1,1 @@
-# Simple, responsive timer/stopwatch app.
+# Simple, responsive timer app.
